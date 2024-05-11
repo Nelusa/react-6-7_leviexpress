@@ -3,14 +3,6 @@ import './style.css';
 import CityOptions from "../CityOptions/index.jsx";
 import DatesOptions from "../DatesOptions/index.jsx";
 
-/*Upravte useEffect volaný při prvním zobrazení komponenty. Vedle seznamu měst bude z API získávat také seznam termínů. Endpoint je na adrese
-
-https://apps.kodim.cz/daweb/leviexpress/api/dates
-
-    a vrací seznam termínů ve formátu, který máme připraven. Změňte výchozí stav dates na prázdné pole a poté do něj nastavte výsledek volání uvedeného endpointu.
-
-    Ověřte v prohlížeči, že se do selectů načítají data (města a termíny) a že po kliknutí na tlačítko „Vyhledat spoj“ se uživatelem zvolené údaje vypíší do konzole prohlížeče.*/
-
 export const JourneyPicker = ({ onJourneyChange }) => {
   const [fromCity, setFromCity] = useState('');
   const [toCity, setToCity] = useState('');
@@ -32,8 +24,6 @@ export const JourneyPicker = ({ onJourneyChange }) => {
       const data = await response.json();
       const apiDates = data.results;
 
-      console.log(apiDates)
-
       setDates(apiDates);
     }
 
@@ -43,8 +33,15 @@ export const JourneyPicker = ({ onJourneyChange }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('Odesílám formulář s cestou');
-    console.log(fromCity, toCity, date);
+
+    const fetchJourney = async () => {
+      const response = await fetch(`https://apps.kodim.cz/daweb/leviexpress/api/journey?fromCity=${fromCity}&toCity=${toCity}&date=${date}`);
+      const data = await response.json();
+      const apiJourney = data.results;
+      onJourneyChange(apiJourney);
+    }
+
+    fetchJourney();
   }
 
   return (
@@ -83,6 +80,7 @@ export const JourneyPicker = ({ onJourneyChange }) => {
               <button
                   className="btn"
                   type="submit"
+                  disabled={!fromCity || !toCity || !date}
               >
                 Vyhledat spoj
               </button>

@@ -6,8 +6,7 @@ const CityOptions = ({ cities }) => {
         <option key={city.code} value={city.code}>
           {city.name}
         </option>
-      ))
-      }
+      ))}
     </>
   )
 }
