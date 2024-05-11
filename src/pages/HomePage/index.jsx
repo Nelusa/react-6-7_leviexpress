@@ -13,8 +13,6 @@ export const HomePage = () => {
   }
 
   const handleBuy = async () => {
-    console.log('Koupit lístek');
-
    const response = await fetch('https://apps.kodim.cz/daweb/leviexpress/api/reservation', {
       method: 'POST',
       headers: {
@@ -33,8 +31,6 @@ export const HomePage = () => {
     navigate(`/reservation/${reservationId}`);
   }
 
-  console.log(journey)
-
   return (
     <main>
       <JourneyPicker onJourneyChange={handleJourneyChange} />
@@ -42,7 +38,7 @@ export const HomePage = () => {
       {journey && (
         <>
           <JourneyDetail journey={journey} />
-          <SeatPicker seats={journey.seats} />
+          <SeatPicker seats={journey.seats} selectedSeat={journey.autoSeat}/>
           {/*<SelectedSeat number={journey.autoSeat} />*/}
           <div className="controls container">
             <button className="btn btn--big" type="button" onClick={handleBuy}>Rezervovat</button>
