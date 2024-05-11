@@ -10,8 +10,6 @@ const ReservationPage = () => {
     const fetchReservation = async () => {
       const response = await fetch(`https://apps.kodim.cz/daweb/leviexpress/api/reservation?id=${id}`)
       const data = await response.json()
-
-      console.log(data)
       setReservation(data.results)
     }
 
