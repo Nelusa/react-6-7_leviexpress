@@ -1,7 +1,6 @@
 import { JourneyPicker } from '../../components/JourneyPicker';
 import {useState} from "react";
 import JourneyDetail from "../../components/JourneyDetail/index.jsx";
-import SelectedSeat from "../../components/SelectedSeat/index.jsx";
 import {useNavigate} from "react-router-dom";
 import SeatPicker from "../../components/SeatPicker/index.jsx";
 
@@ -34,6 +33,8 @@ export const HomePage = () => {
     navigate(`/reservation/${reservationId}`);
   }
 
+  console.log(journey)
+
   return (
     <main>
       <JourneyPicker onJourneyChange={handleJourneyChange} />
@@ -41,13 +42,13 @@ export const HomePage = () => {
       {journey && (
         <>
           <JourneyDetail journey={journey} />
+          <SeatPicker seats={journey.seats} />
           {/*<SelectedSeat number={journey.autoSeat} />*/}
           <div className="controls container">
             <button className="btn btn--big" type="button" onClick={handleBuy}>Rezervovat</button>
           </div>
         </>
       )}
-      <SeatPicker />
     </main>
   );
 };
