@@ -14,10 +14,10 @@ const ReservationPage = () => {
     }
 
     fetchReservation()
-  }, [id])
+  }, [])
 
   if (reservation === null) {
-    return <div className="reservation container">Loading...</div>
+    return <div className="reservation container">Načítám údaje...</div>
   }
 
   const {date, fromCity, seatNumber, toCity} = reservation
